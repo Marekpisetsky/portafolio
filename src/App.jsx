@@ -9,57 +9,153 @@ const copy = {
   es: {
     meta: 'CV digital / 2025',
     heroTitle: 'Marek Andrei Pisetsky Neyra',
-    heroSubtitle: 'International Business · Marketing · Labs sostenibles',
+    heroSubtitle: 'International Business | Marketing | Labs sostenibles',
     heroParagraph:
       'Combino marketing, competencias internacionales y herramientas tecnicas para ayudar a empresas sostenibles a lanzar, medir y escalar experiencias en Europa.',
     heroPrimaryCta: 'Agenda una llamada',
     heroSecondaryCta: 'Ver contacto',
     heroSignal: 'Listo para traineeships internacionales',
     highlightsTitle: 'Impacto clave',
-    highlightsDescription: 'Colaboraciones verificables con BYK, Print.com, Comfort Zone y el council de Saxion.',
+    highlightsDescription: 'Colaboraciones con BYK, Print.com, Comfort Zone y el council de Saxion.',
     layersTitle: 'Mapa de capacidades',
-    layersDescription: 'Una unica vista que resume proyectos, herramientas, educacion y competencias.',
+    layersDescription: 'Una sola vista con proyectos, herramientas, educacion y certificaciones.',
     experienceTitle: 'Experiencia aplicada',
-    experienceDescription: 'Colaboraciones reales con empresas centradas en sostenibilidad y crecimiento.',
+    experienceDescription: 'Historias reales junto a equipos enfocados en sostenibilidad.',
     contactTitle: 'Signal desk',
     contactDescription: 'Correo, llamada o nota de voz. Respondo en menos de 48 horas.',
     languageLabel: 'Idioma',
+    tickerLabel: 'Labs recientes',
+    spotlightsTitle: 'Spotlights sostenibles',
+    spotlightsDescription: 'Mini casos que mezclan marketing, research y tecnologia.',
     heroNav: [
       { label: 'Mapa', target: '#matrix' },
-      { label: 'Certificaciones', target: '#matrix' },
+      { label: 'Spotlights', target: '#spotlights' },
       { label: 'Contacto', target: '#contact' },
     ],
   },
   en: {
     meta: 'Digital CV / 2025',
     heroTitle: 'Marek Andrei Pisetsky Neyra',
-    heroSubtitle: 'International Business · Marketing · Sustainable labs',
+    heroSubtitle: 'International Business | Marketing | Sustainable labs',
     heroParagraph:
       'I blend marketing, international competencies, and technical tools to help sustainable companies launch, measure, and scale experiences across Europe.',
     heroPrimaryCta: 'Schedule a call',
     heroSecondaryCta: 'View contact',
     heroSignal: 'Open for international traineeships',
     highlightsTitle: 'Key impact',
-    highlightsDescription: 'Verifiable collaborations with BYK, Print.com, Comfort Zone, and Saxion council.',
+    highlightsDescription: 'Collaborations with BYK, Print.com, Comfort Zone, and Saxion council.',
     layersTitle: 'Capability map',
-    layersDescription: 'A single glance captures projects, tools, education, and skills.',
+    layersDescription: 'Projects, tools, education, and certifications in a single canvas.',
     experienceTitle: 'Applied experience',
-    experienceDescription: 'Hands-on collaborations with sustainability-focused companies.',
+    experienceDescription: 'Real stories with sustainability-focused teams.',
     contactTitle: 'Signal desk',
     contactDescription: 'Email, call, or voice memo. I reply within 48 hours.',
     languageLabel: 'Language',
+    tickerLabel: 'Recent labs',
+    spotlightsTitle: 'Sustainable spotlights',
+    spotlightsDescription: 'Short cases blending marketing, research, and technology.',
     heroNav: [
       { label: 'Map', target: '#matrix' },
-      { label: 'Certifications', target: '#matrix' },
+      { label: 'Spotlights', target: '#spotlights' },
       { label: 'Contact', target: '#contact' },
     ],
   },
 }
 
+
 const heroFocus = [
   { es: 'Marketing estrategico', en: 'Strategic marketing' },
   { es: 'Competencias internacionales', en: 'International competencies' },
   { es: 'Innovacion sostenible', en: 'Sustainable innovation' },
+]
+
+const tickerEntries = [
+  {
+    tag: { es: 'BYK', en: 'BYK' },
+    title: {
+      es: 'Playbook sostenible',
+      en: 'Sustainable playbook',
+    },
+    result: {
+      es: 'Mensajes B2B y research para quimicos verdes.',
+      en: 'B2B messaging and research for green chemicals.',
+    },
+  },
+  {
+    tag: { es: 'Print.com', en: 'Print.com' },
+    title: {
+      es: 'GTM circular',
+      en: 'Circular GTM',
+    },
+    result: {
+      es: 'Cadencias comerciales para impresiones sin residuos.',
+      en: 'Sales cadences for zero-waste printing.',
+    },
+  },
+  {
+    tag: { es: 'Comfort Zone', en: 'Comfort Zone' },
+    title: {
+      es: 'Retail consciente',
+      en: 'Conscious retail',
+    },
+    result: {
+      es: 'Journeys omnicanal para bienestar premium.',
+      en: 'Omnichannel journeys for premium wellbeing.',
+    },
+  },
+  {
+    tag: { es: 'Saxion', en: 'Saxion' },
+    title: {
+      es: 'School council',
+      en: 'School council',
+    },
+    result: {
+      es: 'Representacion estudiantil en decisiones estrategicas.',
+      en: 'Student representation on strategic decisions.',
+    },
+  },
+]
+
+const spotlights = [
+  {
+    title: { es: 'BYK · Marketing cientifico', en: 'BYK · Scientific marketing' },
+    focus: { es: 'Research + storytelling', en: 'Research + storytelling' },
+    body: {
+      es: 'Traduci insights de laboratorio en mensajes comerciales y dashboards que muestran el impacto ambiental del portafolio.',
+      en: 'Translated lab insights into commercial messaging and dashboards that frame the environmental impact of the portfolio.',
+    },
+    outcome: {
+      es: 'Playbook B2B con narrativa y datos listos para ventas.',
+      en: 'B2B playbook blending narrative and ready-to-sell data.',
+    },
+    tone: 'one',
+  },
+  {
+    title: { es: 'Print.com · Growth circular', en: 'Print.com · Circular growth' },
+    focus: { es: 'GTM + operaciones', en: 'GTM + operations' },
+    body: {
+      es: 'Mapeé partners y cree un simulador de volumen para impresiones sin residuos en Benelux.',
+      en: 'Mapped partners and created a volume simulator for zero-waste printing in the Benelux.',
+    },
+    outcome: {
+      es: 'Hoja de ruta comercial con experimentos por canal.',
+      en: 'Channel-by-channel commercial roadmap with experiments.',
+    },
+    tone: 'two',
+  },
+  {
+    title: { es: 'Comfort Zone · Experiencia retail', en: 'Comfort Zone · Retail experience' },
+    focus: { es: 'CX + diseno', en: 'CX + design' },
+    body: {
+      es: 'Desarrolle journeys omnicanal y prototipos de servicio para bienestar premium.',
+      en: 'Developed omnichannel journeys and service prototypes for premium wellbeing.',
+    },
+    outcome: {
+      es: 'Pilotos en tienda con training y metricas de conversacion.',
+      en: 'In-store pilots with training and conversation metrics.',
+    },
+    tone: 'three',
+  },
 ]
 
 const highlightMetrics = [
@@ -417,17 +513,26 @@ const App = () => {
   <div className="orb orb--right" aria-hidden="true" />
       <div className="gradient-band gradient-band--one" aria-hidden="true" />
       <div className="gradient-band gradient-band--two" aria-hidden="true" />
-      <div className="portal-overlay" aria-hidden="true">
-        <span className="portal-overlay__ring portal-overlay__ring--one" />
-        <span className="portal-overlay__ring portal-overlay__ring--two" />
-        <span className="portal-overlay__ring portal-overlay__ring--three" />
-        <span className="portal-overlay__grid" />
-      </div>
+  <div className="portal-overlay" aria-hidden="true">
+    <span className="portal-overlay__ring portal-overlay__ring--one" />
+    <span className="portal-overlay__ring portal-overlay__ring--two" />
+    <span className="portal-overlay__ring portal-overlay__ring--three" />
+    <span className="portal-overlay__grid" />
+    <span className="portal-overlay__ray portal-overlay__ray--one" />
+    <span className="portal-overlay__ray portal-overlay__ray--two" />
+    <div className="portal-render">
+      <span className="portal-render__core" />
+      <span className="portal-render__pulse" />
+      <span className="portal-render__scan" />
+    </div>
+  </div>
       <div className="energy-strata" aria-hidden="true" />
       <div className="scanline-overlay" aria-hidden="true" />
   <div className="pointer-events-none absolute inset-0 -z-10 noise-texture" aria-hidden="true" />
   <div className="geo-shape geo-shape--one" aria-hidden="true" />
   <div className="geo-shape geo-shape--two" aria-hidden="true" />
+  <div className="front-aurora front-aurora--left" aria-hidden="true" />
+  <div className="front-aurora front-aurora--right" aria-hidden="true" />
 
       <div
         className="cursor"
@@ -499,6 +604,23 @@ const App = () => {
             </div>
           </div>
 
+          <div className="hero-ticker">
+            <span className="hero-ticker__label">{t.tickerLabel}</span>
+            <div className="hero-ticker__viewport">
+              <div className="hero-ticker__track">
+                {[...tickerEntries, ...tickerEntries].map((entry, index) => (
+                  <div key={`${entry.tag.es}-${index}`} className="hero-ticker__item">
+                    <span className="hero-ticker__tag">{entry.tag[language]}</span>
+                    <div>
+                      <p className="hero-ticker__title">{entry.title[language]}</p>
+                      <p className="hero-ticker__meta">{entry.result[language]}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
           <div className="hero-nav">
             {t.heroNav.map((item) => (
               <a key={item.target} href={item.target}>
@@ -521,6 +643,30 @@ const App = () => {
                 <p className="text-xs uppercase tracking-[0.5em] text-white/60">{metric.label[language]}</p>
                 <h3 className="text-3xl font-semibold text-white">{metric.value}</h3>
                 <p className="text-sm text-white/70">{metric.detail[language]}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section id="spotlights" className="mt-28 border-t border-white/10 pt-16">
+          <div className="spotlight-intro">
+            <div>
+              <p className="text-xs uppercase tracking-[0.6em] text-white/55">{t.spotlightsTitle}</p>
+              <h2 className="mt-3 text-3xl font-light text-white md:text-[38px]">{t.spotlightsDescription}</h2>
+            </div>
+          </div>
+          <div className="spotlight-grid">
+            {spotlights.map((story) => (
+              <article key={story.title.es} className="spotlight-card" data-tone={story.tone}>
+                <header>
+                  <span className="spotlight-card__focus">{story.focus[language]}</span>
+                  <h3>{story.title[language]}</h3>
+                </header>
+                <p className="text-sm text-white/75">{story.body[language]}</p>
+                <p className="spotlight-card__outcome">{story.outcome[language]}</p>
+                <button type="button" className="spotlight-card__cta">
+                  {language === 'es' ? 'Ver dossier' : 'View dossier'}
+                </button>
               </article>
             ))}
           </div>
