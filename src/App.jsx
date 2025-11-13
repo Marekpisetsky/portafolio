@@ -1,784 +1,794 @@
-import { useEffect, useRef, useState } from 'react'
+
+import { useEffect, useState } from 'react'
 
 const languageOptions = [
   { code: 'es', label: 'ES' },
   { code: 'en', label: 'EN' },
+  { code: 'nl', label: 'NL' },
 ]
+
+const themeOptions = [
+  { code: 'light', label: { es: 'Claro', en: 'Light', nl: 'Licht' } },
+  { code: 'dark', label: { es: 'Oscuro', en: 'Dark', nl: 'Donker' } },
+]
+
 
 const copy = {
   es: {
-    meta: 'CV digital / 2025',
+    meta: 'CV internacional / 2025',
     heroTitle: 'Marek Andrei Pisetsky Neyra',
-    heroSubtitle: 'International Business | Marketing | Labs sostenibles',
+    heroSubtitle: 'Negocios internacionales | Estrategia | Desarrollo organizacional',
     heroParagraph:
-      'Combino marketing, competencias internacionales y herramientas tecnicas para ayudar a empresas sostenibles a lanzar, medir y escalar experiencias en Europa.',
-    heroPrimaryCta: 'Agenda una llamada',
-    heroSecondaryCta: 'Ver contacto',
-    heroSignal: 'Listo para traineeships internacionales',
-    highlightsTitle: 'Impacto clave',
-    highlightsDescription: 'Colaboraciones con BYK, Print.com, Comfort Zone y el council de Saxion.',
-    layersTitle: 'Mapa de capacidades',
-    layersDescription: 'Una sola vista con proyectos, herramientas, educacion y certificaciones.',
+      'Estudiante de Negocios Internacionales enfocado en estrategia, administracion y desarrollo organizacional. Conecto analisis de mercado, proyectos multiculturales y herramientas digitales para apoyar a empresas de comercio, logistica y consultoria.',
+    heroPrimaryCta: 'Coordinar una reunion',
+    heroSecondaryCta: 'Ver detalles',
+    heroSignal: 'Disponible para programas trainee y practicas en negocios internacionales',
+    highlightsTitle: 'Casos destacados',
+    highlightsDescription: 'Estrategia de marca para Comfort Zone, analisis de mercado para BYK y mapa de experiencia de cliente para Print.com.',
+    layersTitle: 'Pilares profesionales',
+    layersDescription: 'Estrategia, investigacion, liderazgo y habilitadores digitales en una sola vista.',
+    toolsTitle: 'Plataformas de trabajo',
+    toolsDescription: 'Herramientas para investigacion, coordinacion y reportes ejecutivos.',
+    skillsTitle: 'Fortalezas clave',
+    skillsDescription: 'Estrategia, analisis y liderazgo intercultural.',
+    educationTitle: 'Educacion y liderazgo',
+    educationDescription: 'Programa BBA en Saxion y representacion estudiantil activa.',
     experienceTitle: 'Experiencia aplicada',
-    experienceDescription: 'Historias reales junto a equipos enfocados en sostenibilidad.',
-    contactTitle: 'Signal desk',
-    contactDescription: 'Correo, llamada o nota de voz. Respondo en menos de 48 horas.',
+    experienceDescription: 'Proyectos reales orientados a marca, analisis y servicio al cliente.',
+    contactTitle: 'Contacto directo',
+    contactDescription: 'Correo, llamada o mensaje. Respondo en menos de 48 horas.',
     languageLabel: 'Idioma',
-    tickerLabel: 'Labs recientes',
-    spotlightsTitle: 'Spotlights sostenibles',
-    spotlightsDescription: 'Mini casos que mezclan marketing, research y tecnologia.',
-    heroNav: [
-      { label: 'Mapa', target: '#matrix' },
-      { label: 'Spotlights', target: '#spotlights' },
-      { label: 'Contacto', target: '#contact' },
-    ],
+    themeLabel: 'Tema',
+    currentFocusLabel: 'Enfoque actual',
+    statusLabel: 'Estado',
+    languagesAvailabilityLabel: 'Idiomas y disponibilidad',
+    availabilityLabel: 'Disponibilidad',
+    nextStepsLabel: 'Proximos pasos',
+    certificationsLabel: 'Certificaciones',
+    contactTools: 'Notion / Trello / Power BI / Microsoft Office',
+    spotlightsTitle: 'Casos de negocio',
+    spotlightsDescription: 'Ejemplos de como conecto estrategia, investigacion y equipos internacionales.',
+    spotlightsBadge: 'Casos',
+    footerTagline: 'Negocios internacionales con enfoque estrategico',
   },
   en: {
-    meta: 'Digital CV / 2025',
+    meta: 'International CV / 2025',
     heroTitle: 'Marek Andrei Pisetsky Neyra',
-    heroSubtitle: 'International Business | Marketing | Sustainable labs',
+    heroSubtitle: 'International Business | Strategy | Organizational development',
     heroParagraph:
-      'I blend marketing, international competencies, and technical tools to help sustainable companies launch, measure, and scale experiences across Europe.',
-    heroPrimaryCta: 'Schedule a call',
-    heroSecondaryCta: 'View contact',
-    heroSignal: 'Open for international traineeships',
-    highlightsTitle: 'Key impact',
-    highlightsDescription: 'Collaborations with BYK, Print.com, Comfort Zone, and Saxion council.',
-    layersTitle: 'Capability map',
-    layersDescription: 'Projects, tools, education, and certifications in a single canvas.',
+      'International Business student focused on strategy, administration, and organizational development. I connect market analysis, multicultural teamwork, and digital tools to support companies in trade, logistics, and consulting.',
+    heroPrimaryCta: 'Set up a call',
+    heroSecondaryCta: 'View details',
+    heroSignal: 'Available for international business placements and trainee programs',
+    highlightsTitle: 'Featured work',
+    highlightsDescription: 'Brand strategy for Comfort Zone, market analysis for BYK, and customer journey design for Print.com.',
+    layersTitle: 'Professional pillars',
+    layersDescription: 'Strategy, research, leadership, and digital enablers in one view.',
+    toolsTitle: 'Work platforms',
+    toolsDescription: 'Suites for research, coordination, and executive reporting.',
+    skillsTitle: 'Core strengths',
+    skillsDescription: 'Strategy, analysis, and cross-cultural leadership.',
+    educationTitle: 'Education & leadership',
+    educationDescription: 'BBA program at Saxion plus active student representation.',
     experienceTitle: 'Applied experience',
-    experienceDescription: 'Real stories with sustainability-focused teams.',
-    contactTitle: 'Signal desk',
-    contactDescription: 'Email, call, or voice memo. I reply within 48 hours.',
+    experienceDescription: 'Real assignments focused on branding, research, and client journeys.',
+    contactTitle: 'Direct contact',
+    contactDescription: 'Email, call, or message. I reply within 48 hours.',
     languageLabel: 'Language',
-    tickerLabel: 'Recent labs',
-    spotlightsTitle: 'Sustainable spotlights',
-    spotlightsDescription: 'Short cases blending marketing, research, and technology.',
-    heroNav: [
-      { label: 'Map', target: '#matrix' },
-      { label: 'Spotlights', target: '#spotlights' },
-      { label: 'Contact', target: '#contact' },
-    ],
+    themeLabel: 'Theme',
+    currentFocusLabel: 'Current focus',
+    statusLabel: 'Status',
+    languagesAvailabilityLabel: 'Languages & availability',
+    availabilityLabel: 'Availability',
+    nextStepsLabel: 'Next steps',
+    certificationsLabel: 'Certifications',
+    contactTools: 'Notion / Trello / Power BI / Microsoft Office',
+    spotlightsTitle: 'Business spotlights',
+    spotlightsDescription: 'Examples of how I connect strategy, research, and international teams.',
+    spotlightsBadge: 'Labs',
+    footerTagline: 'International business with a strategic lens',
+  },
+  nl: {
+    meta: 'Internationaal CV / 2025',
+    heroTitle: 'Marek Andrei Pisetsky Neyra',
+    heroSubtitle: 'International Business | Strategie | Organisatieontwikkeling',
+    heroParagraph:
+      'International Business student met focus op strategie, administratie en organisatieontwikkeling. Ik verbind marktanalyse, multiculturele teams en digitale tools om bedrijven in handel, logistiek en consultancy te ondersteunen.',
+    heroPrimaryCta: 'Plan een gesprek',
+    heroSecondaryCta: 'Bekijk details',
+    heroSignal: 'Beschikbaar voor internationale business traineeships',
+    highlightsTitle: 'Belangrijkste cases',
+    highlightsDescription: 'Brandstrategie voor Comfort Zone, marktanalyse voor BYK en customer journey voor Print.com.',
+    layersTitle: 'Professionele pijlers',
+    layersDescription: 'Strategie, research, leiderschap en digitale enablers in een overzicht.',
+    toolsTitle: 'Werkplatforms',
+    toolsDescription: 'Suites voor research, coordinatie en executive rapportages.',
+    skillsTitle: 'Belangrijkste sterktes',
+    skillsDescription: 'Strategie, analyse en cross-cultureel leiderschap.',
+    educationTitle: 'Opleiding en leiderschap',
+    educationDescription: 'BBA-programma bij Saxion plus actieve studentenvertegenwoordiging.',
+    experienceTitle: 'Toegepaste ervaring',
+    experienceDescription: 'Echte opdrachten rond branding, research en klantreizen.',
+    contactTitle: 'Direct contact',
+    contactDescription: 'Mail, bel of stuur een bericht. Reactie binnen 48 uur.',
+    languageLabel: 'Taal',
+    themeLabel: 'Thema',
+    currentFocusLabel: 'Huidige focus',
+    statusLabel: 'Status',
+    languagesAvailabilityLabel: 'Talen en beschikbaarheid',
+    availabilityLabel: 'Beschikbaarheid',
+    nextStepsLabel: 'Volgende stappen',
+    certificationsLabel: 'Certificeringen',
+    contactTools: 'Notion / Trello / Power BI / Microsoft Office',
+    spotlightsTitle: 'Business cases',
+    spotlightsDescription: 'Voorbeelden van hoe ik strategie, research en internationale teams verbind.',
+    spotlightsBadge: 'Cases',
+    footerTagline: 'International business met een strategische blik',
   },
 }
 
 
 const heroFocus = [
-  { es: 'Marketing estrategico', en: 'Strategic marketing' },
-  { es: 'Competencias internacionales', en: 'International competencies' },
-  { es: 'Innovacion sostenible', en: 'Sustainable innovation' },
+  { es: 'Estrategia de negocio', en: 'Business strategy', nl: 'Business strategie' },
+  { es: 'Inteligencia de mercado', en: 'Market intelligence', nl: 'Marktinzicht' },
+  { es: 'Coordinacion multicultural', en: 'Multicultural coordination', nl: 'Multiculturele coordinatie' },
 ]
 
-const tickerEntries = [
-  {
-    tag: { es: 'BYK', en: 'BYK' },
-    title: {
-      es: 'Playbook sostenible',
-      en: 'Sustainable playbook',
-    },
-    result: {
-      es: 'Mensajes B2B y research para quimicos verdes.',
-      en: 'B2B messaging and research for green chemicals.',
-    },
-  },
-  {
-    tag: { es: 'Print.com', en: 'Print.com' },
-    title: {
-      es: 'GTM circular',
-      en: 'Circular GTM',
-    },
-    result: {
-      es: 'Cadencias comerciales para impresiones sin residuos.',
-      en: 'Sales cadences for zero-waste printing.',
-    },
-  },
-  {
-    tag: { es: 'Comfort Zone', en: 'Comfort Zone' },
-    title: {
-      es: 'Retail consciente',
-      en: 'Conscious retail',
-    },
-    result: {
-      es: 'Journeys omnicanal para bienestar premium.',
-      en: 'Omnichannel journeys for premium wellbeing.',
-    },
-  },
-  {
-    tag: { es: 'Saxion', en: 'Saxion' },
-    title: {
-      es: 'School council',
-      en: 'School council',
-    },
-    result: {
-      es: 'Representacion estudiantil en decisiones estrategicas.',
-      en: 'Student representation on strategic decisions.',
-    },
-  },
+const navigationLinks = [
+  { id: 'overview', label: { es: 'Resumen', en: 'Overview', nl: 'Overzicht' } },
+  { id: 'impact', label: { es: 'Impacto', en: 'Impact', nl: 'Impact' } },
+  { id: 'experience', label: { es: 'Experiencia', en: 'Experience', nl: 'Ervaring' } },
+  { id: 'capabilities', label: { es: 'Capacidades', en: 'Capabilities', nl: 'Capaciteiten' } },
+  { id: 'education', label: { es: 'Educacion', en: 'Education', nl: 'Opleiding' } },
+  { id: 'contact', label: { es: 'Contacto', en: 'Contact', nl: 'Contact' } },
 ]
+
 
 const spotlights = [
   {
-    title: { es: 'BYK · Marketing cientifico', en: 'BYK · Scientific marketing' },
-    focus: { es: 'Research + storytelling', en: 'Research + storytelling' },
+    title: { es: 'Comfort Zone - Estrategia de marca', en: 'Comfort Zone - Brand strategy', nl: 'Comfort Zone - Merkstrategie' },
+    focus: { es: 'Marca + posicionamiento', en: 'Branding + positioning', nl: 'Branding + positionering' },
     body: {
-      es: 'Traduci insights de laboratorio en mensajes comerciales y dashboards que muestran el impacto ambiental del portafolio.',
-      en: 'Translated lab insights into commercial messaging and dashboards that frame the environmental impact of the portfolio.',
+      es: 'Desarrollamos una propuesta de marca alineada con los objetivos de crecimiento y la narrativa de bienestar premium.',
+      en: 'Developed a brand proposal aligned with growth goals and the premium wellbeing narrative.',
+      nl: 'Ontwikkelde een merkvoorstel dat aansloot op groeidoelen en de premium wellbeing propositie.',
     },
     outcome: {
-      es: 'Playbook B2B con narrativa y datos listos para ventas.',
-      en: 'B2B playbook blending narrative and ready-to-sell data.',
+      es: 'Guia de tono y plan de activacion para nuevos puntos de contacto.',
+      en: 'Tone of voice guide plus activation plan for new touchpoints.',
+      nl: 'Tone-of-voicegids en activatieplan voor nieuwe touchpoints.',
     },
     tone: 'one',
   },
   {
-    title: { es: 'Print.com · Growth circular', en: 'Print.com · Circular growth' },
-    focus: { es: 'GTM + operaciones', en: 'GTM + operations' },
+    title: { es: 'BYK - Inteligencia de mercado', en: 'BYK - Market intelligence', nl: 'BYK - Marktinzicht' },
+    focus: { es: 'Investigacion + analisis', en: 'Research + analysis', nl: 'Research + analyse' },
     body: {
-      es: 'Mapeé partners y cree un simulador de volumen para impresiones sin residuos en Benelux.',
-      en: 'Mapped partners and created a volume simulator for zero-waste printing in the Benelux.',
+      es: 'Realice un estudio de mercado sobre instrumentos de medicion de color evaluando clientes, competidores y oportunidades globales.',
+      en: 'Led a market study on color measurement instruments assessing customers, competitors, and global opportunities.',
+      nl: 'Voerde een marktonderzoek uit naar kleurmeetinstrumenten en beoordeelde klanten, concurrenten en wereldwijde kansen.',
     },
     outcome: {
-      es: 'Hoja de ruta comercial con experimentos por canal.',
-      en: 'Channel-by-channel commercial roadmap with experiments.',
+      es: 'Matriz de oportunidades y pasos de posicionamiento para direccion.',
+      en: 'Opportunity matrix and positioning steps for leadership.',
+      nl: 'Kansenmatrix en positioneringsstappen voor het management.',
     },
     tone: 'two',
   },
   {
-    title: { es: 'Comfort Zone · Experiencia retail', en: 'Comfort Zone · Retail experience' },
-    focus: { es: 'CX + diseno', en: 'CX + design' },
+    title: { es: 'Print.com - Viaje del cliente', en: 'Print.com - Customer journey', nl: 'Print.com - Klantreis' },
+    focus: { es: 'Experiencia de cliente', en: 'Customer experience', nl: 'Klantbeleving' },
     body: {
-      es: 'Desarrolle journeys omnicanal y prototipos de servicio para bienestar premium.',
-      en: 'Developed omnichannel journeys and service prototypes for premium wellbeing.',
+      es: 'Mapee el viaje del cliente en Benelux para mejorar compromiso y lealtad.',
+      en: 'Mapped the Benelux customer journey to improve engagement and loyalty.',
+      nl: 'Kaartte de klantreis in de Benelux om betrokkenheid en loyaliteit te verhogen.',
     },
     outcome: {
-      es: 'Pilotos en tienda con training y metricas de conversacion.',
-      en: 'In-store pilots with training and conversation metrics.',
+      es: 'Mapa integral con recomendaciones accionables por etapa.',
+      en: 'End to end journey map with stage based recommendations.',
+      nl: 'Routekaart met aanbevelingen per fase.',
     },
     tone: 'three',
   },
 ]
 
+
 const highlightMetrics = [
   {
-    label: { es: 'BYK', en: 'BYK' },
-    value: 'Sustainability playbook',
+    label: { es: 'Comfort Zone', en: 'Comfort Zone', nl: 'Comfort Zone' },
+    value: { es: 'Guia de marca', en: 'Brand guide', nl: 'Merkgids' },
     detail: {
-      es: 'Research + narrativa comercial para quimicos verdes.',
-      en: 'Research + commercial narrative for green chemicals.',
+      es: 'Narrativa y activaciones alineadas con bienestar premium.',
+      en: 'Narrative and activations aligned with premium wellbeing.',
+      nl: 'Narratief en activaties afgestemd op premium wellbeing.',
     },
     tone: 'one',
   },
   {
-    label: { es: 'Print.com', en: 'Print.com' },
-    value: 'Circular go-to-market',
+    label: { es: 'BYK', en: 'BYK', nl: 'BYK' },
+    value: { es: 'Analisis de mercado', en: 'Market analysis', nl: 'Marktanalyse' },
     detail: {
-      es: 'Plan comercial para impresiones sin residuos en Benelux.',
-      en: 'Commercial plan for zero-waste printing in Benelux.',
+      es: 'Hallazgos sobre instrumentos de medicion de color y oportunidades B2B.',
+      en: 'Insights on color measurement instruments and B2B opportunities.',
+      nl: 'Inzichten over kleurmeetinstrumenten en B2B kansen.',
     },
     tone: 'two',
   },
   {
-    label: { es: 'Comfort Zone', en: 'Comfort Zone' },
-    value: 'Retail experience',
+    label: { es: 'Print.com', en: 'Print.com', nl: 'Print.com' },
+    value: { es: 'Mapa del viaje del cliente', en: 'Customer journey map', nl: 'Klantreis-plan' },
     detail: {
-      es: 'Journeys omnicanal para bienestar consciente.',
-      en: 'Omnichannel journeys for conscious wellbeing.',
+      es: 'Hoja de ruta para reforzar la relacion y la lealtad en Benelux.',
+      en: 'Roadmap to drive engagement and loyalty in the Benelux.',
+      nl: 'Routekaart om betrokkenheid en loyaliteit in de Benelux te versterken.',
     },
     tone: 'three',
   },
   {
-    label: { es: 'Saxion Council', en: 'Saxion Council' },
-    value: 'Student representation',
+    label: { es: 'Consejo Saxion', en: 'Saxion council', nl: 'Saxion-raad' },
+    value: { es: 'Representacion estudiantil', en: 'Student representation', nl: 'Studentenvertegenwoordiging' },
     detail: {
-      es: 'Consejo estudiantil que define decisiones academicas.',
-      en: 'Student council shaping academic decisions.',
+      es: 'Participacion en decisiones academicas y estrategicas.',
+      en: 'Input on academic and strategic decisions.',
+      nl: 'Input in academische en strategische besluiten.',
     },
     tone: 'four',
   },
 ]
 
+
 const cvLayers = [
   {
     code: '01',
-    title: { es: 'Negocios internacionales', en: 'International business' },
-    detail: { es: 'Finanzas, supply, marketing global y compliance en la UE.', en: 'Finance, supply, global marketing, and EU compliance.' },
-    tag: { es: 'Fundamento', en: 'Foundation' },
-    unlockAt: 0.02,
+    title: { es: 'Estrategia y administracion', en: 'Strategy and administration', nl: 'Strategie en administratie' },
+    detail: {
+      es: 'Planeacion estrategica, casos de negocio y ordenamiento de operaciones.',
+      en: 'Strategic planning, business cases, and operating discipline.',
+      nl: 'Strategische planning, business cases en operationele structuur.',
+    },
+    tag: { es: 'Base', en: 'Foundation', nl: 'Basis' },
   },
   {
     code: '02',
-    title: { es: 'Estrategia + research', en: 'Strategy + research' },
-    detail: { es: 'Due diligence, estudios de mercado y planes GTM.', en: 'Due diligence, market studies, and GTM plans.' },
-    tag: { es: 'Aplicacion', en: 'Application' },
-    unlockAt: 0.18,
+    title: { es: 'Inteligencia de mercado', en: 'Market intelligence', nl: 'Marktinzicht' },
+    detail: {
+      es: 'Investigacion, analisis de competencia y mapeo de clientes.',
+      en: 'Research, competitive analysis, and customer mapping.',
+      nl: 'Onderzoek, concurrentieanalyse en klantmapping.',
+    },
+    tag: { es: 'Analitica', en: 'Analytics', nl: 'Analyse' },
   },
   {
     code: '03',
-    title: { es: 'Producto + crecimiento', en: 'Product + growth' },
+    title: { es: 'Coordinacion multicultural', en: 'Multicultural coordination', nl: 'Multiculturele coordinatie' },
     detail: {
-      es: 'Loops de experimentacion, dashboards y storytelling de metricas.',
-      en: 'Experiment loops, dashboards, and metric storytelling.',
+      es: 'Gestion de equipos y stakeholders en entornos EU / LATAM.',
+      en: 'Managing teams and stakeholders across EU / LATAM hubs.',
+      nl: 'Teams en stakeholders aansturen over EU / LATAM hubs.',
     },
-    tag: { es: 'Ejecucion', en: 'Execution' },
-    unlockAt: 0.38,
+    tag: { es: 'Colaboracion', en: 'Collaboration', nl: 'Samenwerking' },
   },
   {
     code: '04',
-    title: { es: 'Liderazgo multicultural', en: 'Multicultural leadership' },
+    title: { es: 'Habilitacion digital', en: 'Digital enablement', nl: 'Digitale enablement' },
     detail: {
-      es: 'Equipos distribuidos, hubs LATAM-EU y workshops bilingues.',
-      en: 'Distributed teams, LATAM-EU hubs, and bilingual workshops.',
+      es: 'Herramientas para reportes, tableros y documentacion clara.',
+      en: 'Tools for reporting, dashboards, and clear documentation.',
+      nl: 'Tools voor rapportage, dashboards en duidelijke documentatie.',
     },
-    tag: { es: 'Conexion', en: 'Connection' },
-    unlockAt: 0.58,
+    tag: { es: 'Soporte', en: 'Support', nl: 'Ondersteuning' },
   },
 ]
+
 
 const experience = [
   {
-    role: { es: 'Marketing & Sustainability Analyst', en: 'Marketing & Sustainability Analyst' },
-    company: 'BYK Chemicals',
-    period: { es: '2024 / Arnhem + remoto', en: '2024 / Arnhem + remote' },
-    impact: {
-      es: 'Mapee oportunidades de productos quimicos verdes y disene el playbook de mensajes para ventas B2B.',
-      en: 'Mapped green chemical opportunities and designed the B2B messaging playbook.',
+    role: {
+      es: 'Lider de branding estrategico',
+      en: 'Branding strategy lead',
+      nl: 'Lead merkstrategie',
     },
-    stack: ['Market sizing', 'Persona labs', 'Story decks'],
-  },
-  {
-    role: { es: 'Commercial Strategy Intern', en: 'Commercial Strategy Intern' },
-    company: 'Print.com',
-    period: { es: '2023 / Arnhem', en: '2023 / Arnhem' },
-    impact: {
-      es: 'Co-diseñe un go-to-market circular para impresiones sin residuos en Benelux.',
-      en: 'Co-designed a circular go-to-market for zero-waste printing in Benelux.',
-    },
-    stack: ['GTM', 'Partner mapping', 'Sustainability KPIs'],
-  },
-  {
-    role: { es: 'Customer Experience Partner', en: 'Customer Experience Partner' },
     company: 'Comfort Zone',
-    period: { es: '2022 / Barcelona', en: '2022 / Barcelona' },
+    period: { es: '2024 / Proyecto universitario', en: '2024 / University project', nl: '2024 / Universitair project' },
     impact: {
-      es: 'Construí journeys y pilotos omnicanal para bienestar consciente.',
-      en: 'Built journeys and omnichannel pilots for conscious wellbeing.',
+      es: 'Codirigi una propuesta de marca que alineo posicionamiento, storytelling y experiencias en tienda.',
+      en: 'Co-led a brand proposal aligning positioning, storytelling, and in-store experiences.',
+      nl: 'Co-leidde een merkvoorstel dat positionering, storytelling en in-store experiences op elkaar afstemde.',
     },
-    stack: ['Service design', 'CRM cadences', 'Workshops'],
+    stack: [
+      { es: 'Estrategia de marca', en: 'Brand strategy', nl: 'Merkstrategie' },
+      { es: 'Narrativa ejecutiva', en: 'Storytelling', nl: 'Storytelling' },
+      { es: 'Talleres facilitados', en: 'Workshops', nl: 'Workshops' },
+    ],
+  },
+  {
+    role: {
+      es: 'Analista de mercado',
+      en: 'Market analyst',
+      nl: 'Marktanalist',
+    },
+    company: 'BYK',
+    period: { es: '2024 / Proyecto universitario', en: '2024 / University project', nl: '2024 / Universitair project' },
+    impact: {
+      es: 'Investigue el mercado europeo de instrumentos de medicion de color y presente oportunidades de crecimiento.',
+      en: 'Researched the European market for color measurement instruments and presented growth opportunities.',
+      nl: 'Onderzocht de Europese markt voor kleurmeetinstrumenten en presenteerde groeikansen.',
+    },
+    stack: [
+      { es: 'Investigacion de mercado', en: 'Market research', nl: 'Marktonderzoek' },
+      { es: 'Analisis competitivo', en: 'Competitive scanning', nl: 'Concurrentiescan' },
+      { es: 'Reportes para direccion', en: 'Executive reporting', nl: 'Rapportage voor management' },
+    ],
+  },
+  {
+    role: {
+      es: 'Coordinador del viaje del cliente',
+      en: 'Customer journey coordinator',
+      nl: 'Coordinator klantreis',
+    },
+    company: 'Print.com',
+    period: { es: '2023 / Arnhem', en: '2023 / Arnhem', nl: '2023 / Arnhem' },
+    impact: {
+      es: 'Mapee y optimice el viaje del cliente para aumentar relacion y retencion.',
+      en: 'Mapped and optimised the customer journey to increase engagement and retention.',
+      nl: 'Kaartte en optimaliseerde de klantreis om betrokkenheid en retentie te verhogen.',
+    },
+    stack: [
+      { es: 'Mapeo de experiencia del cliente', en: 'Customer journey mapping', nl: 'Klantreis in kaart brengen' },
+      { es: 'Entrevistas con equipos clave', en: 'Stakeholder interviews', nl: 'Interviews met stakeholders' },
+      { es: 'Analisis de fidelizacion', en: 'Loyalty insights', nl: 'Inzichten over loyaliteit' },
+    ],
+  },
+  {
+    role: {
+      es: 'Miembro del consejo estudiantil',
+      en: 'School council member',
+      nl: 'Lid studentenraad',
+    },
+    company: 'Saxion University',
+    period: { es: '2024 - presente / Deventer', en: '2024 - present / Deventer', nl: '2024 - heden / Deventer' },
+    impact: {
+      es: 'Represento a estudiantes en decisiones academicas y de estrategia institucional.',
+      en: 'Represent students in academic and institutional strategy decisions.',
+      nl: 'Vertegenwoordig studenten in academische en strategische besluiten.',
+    },
+    stack: [
+      { es: 'Politicas academicas', en: 'Policy input', nl: 'Beleidsinput' },
+      { es: 'Gobernanza', en: 'Governance', nl: 'Governance' },
+      { es: 'Liderazgo estudiantil', en: 'Student leadership', nl: 'Studentenleiderschap' },
+    ],
   },
 ]
+
 
 const education = [
   {
-    institution: 'HAN UAS',
-    program: { es: 'BBA International Business & Marketing', en: 'BBA International Business & Marketing' },
+    institution: 'Saxion University of Applied Sciences',
+    program: {
+      es: 'BBA International Business',
+      en: 'BBA International Business',
+      nl: 'BBA International Business',
+    },
     year: '2021 - 2025',
     detail: {
-      es: 'Especializacion en Competencias Internacionales y Growth sostenible.',
-      en: 'Specialisation in International Competencies and sustainable growth.',
+      es: 'Enfasis en estrategia, innovacion sostenible y comercio internacional.',
+      en: 'Focus on strategy, sustainable innovation, and international trade.',
+      nl: 'Focus op strategie, duurzame innovatie en internationale handel.',
     },
   },
   {
-    institution: 'Saxion University',
-    program: { es: 'School Council / Student Representation', en: 'School Council / Student Representation' },
-    year: '2024 - actual',
+    institution: 'Saxion School Council',
+    program: {
+      es: 'Representacion estudiantil',
+      en: 'Student representation',
+      nl: 'Studentenvertegenwoordiging',
+    },
+    year: '2024 - presente',
     detail: {
-      es: 'Represento a estudiantes en decisiones estrategicas de la facultad.',
-      en: 'Represent students in strategic faculty decisions.',
+      es: 'Participacion activa en politicas academicas y de calidad educativa.',
+      en: 'Active participation in academic policy and quality assurance.',
+      nl: 'Actieve deelname aan academisch beleid en kwaliteitsbewaking.',
     },
   },
 ]
 
+
 const certifications = [
-  { name: 'Vuforia Mastery', issuer: 'PTC', year: '2024' },
-  { name: 'Office Specialist', issuer: 'Microsoft', year: '2023' },
-  { name: 'Adobe Photoshop', issuer: 'Adobe', year: '2022' },
-  { name: 'Adobe Illustrator', issuer: 'Adobe', year: '2022' },
-  { name: 'Unity Foundations', issuer: 'Unity', year: '2022' },
-  { name: 'SketchUp Fundamentals', issuer: 'Trimble', year: '2021' },
+  { name: 'Microsoft Office Specialist', issuer: 'Microsoft', year: '2023' },
+  { name: 'Google Workspace Productivity', issuer: 'Google', year: '2023' },
+  { name: 'Power BI Fundamentals', issuer: 'Microsoft Learn', year: '2022' },
+  { name: 'Unity AR/VR Foundations', issuer: 'Unity', year: '2022' },
 ]
+
 
 const skillClusters = [
   {
-    title: { es: 'Estrategia + investigacion', en: 'Strategy + research' },
+    title: { es: 'Estrategia y administracion', en: 'Strategy & administration', nl: 'Strategie en administratie' },
     skills: [
-      { label: { es: 'Dimensionamiento de mercado', en: 'Market sizing' }, level: 0.9 },
-      { label: { es: 'Frameworks GTM', en: 'GTM frameworks' }, level: 0.85 },
-      { label: { es: 'Modelado de negocio', en: 'Business modelling' }, level: 0.8 },
+      { label: { es: 'Planeacion estrategica', en: 'Strategic planning', nl: 'Strategische planning' }, level: 0.9 },
+      { label: { es: 'Organizacion y procesos', en: 'Organization & processes', nl: 'Organisatie en processen' }, level: 0.85 },
+      { label: { es: 'Desarrollo de negocios', en: 'Business development', nl: 'Business development' }, level: 0.82 },
     ],
   },
   {
-    title: { es: 'Operaciones + herramientas', en: 'Operations + tools' },
+    title: { es: 'Inteligencia de mercado', en: 'Market intelligence', nl: 'Marktinzicht' },
     skills: [
-      { label: { es: 'Notion / ClickUp', en: 'Notion / ClickUp' }, level: 0.88 },
-      { label: { es: 'Power BI / Tableau', en: 'Power BI / Tableau' }, level: 0.75 },
-      { label: { es: 'Excel avanzado', en: 'Advanced Excel' }, level: 0.82 },
+      { label: { es: 'Investigacion cuantitativa', en: 'Quantitative research', nl: 'Kwantitatief onderzoek' }, level: 0.83 },
+      { label: { es: 'Analisis competitivo', en: 'Competitive analysis', nl: 'Concurrentieanalyse' }, level: 0.8 },
+      { label: { es: 'Reportes ejecutivos', en: 'Executive reporting', nl: 'Executive reporting' }, level: 0.78 },
     ],
   },
   {
-    title: { es: 'Comunicacion', en: 'Communication' },
+    title: { es: 'Liderazgo y comunicacion', en: 'Leadership & communication', nl: 'Leiderschap en communicatie' },
     skills: [
-      { label: { es: 'Storytelling ejecutivo', en: 'Executive storytelling' }, level: 0.87 },
-      { label: { es: 'Facilitacion bilingue', en: 'Bilingual facilitation' }, level: 0.9 },
-      { label: { es: 'Copy estrategico', en: 'Strategic copy' }, level: 0.78 },
+      { label: { es: 'Coordinacion multicultural', en: 'Multicultural coordination', nl: 'Multiculturele coordinatie' }, level: 0.88 },
+      { label: { es: 'Presentaciones y propuestas', en: 'Presentations & pitching', nl: 'Presentaties en pitching' }, level: 0.84 },
+      { label: { es: 'Gestion de grupos de interes', en: 'Stakeholder engagement', nl: 'Stakeholder engagement' }, level: 0.86 },
     ],
   },
 ]
 
+
 const languageSkills = [
-  { label: { es: 'Espanol', en: 'Spanish' }, level: { es: 'Nativo / C2', en: 'Native / C2' } },
-  { label: { es: 'Ingles', en: 'English' }, level: { es: 'C1 profesional', en: 'C1 professional' } },
-  { label: { es: 'Holandes', en: 'Dutch' }, level: { es: 'B1 en progreso', en: 'B1 in progress' } },
+  { label: { es: 'Espanol', en: 'Spanish', nl: 'Spaans' }, level: { es: 'Nativo / C2', en: 'Native / C2', nl: 'Moedertaal / C2' } },
+  { label: { es: 'Ingles', en: 'English', nl: 'Engels' }, level: { es: 'C1 profesional', en: 'Professional C1', nl: 'Professioneel C1' } },
+  { label: { es: 'Holandes', en: 'Dutch', nl: 'Nederlands' }, level: { es: 'A1 en progreso', en: 'A1 in progress', nl: 'A1 in ontwikkeling' } },
 ]
+
 
 const techTools = [
   {
-    name: 'Power BI',
+    name: 'Microsoft Office',
     detail: {
-      es: 'Dashboards interactivos y storytelling de datos.',
-      en: 'Interactive dashboards and data storytelling.',
+      es: 'Certificacion MOS para modelos, reportes y presentaciones.',
+      en: 'MOS certification for models, reports, and presentations.',
+      nl: 'MOS-certificering voor modellen, rapportages en presentaties.',
     },
   },
   {
-    name: 'Notion + ClickUp',
+    name: 'Power BI',
     detail: {
-      es: 'Workrooms compartidos para research y growth.',
-      en: 'Shared workrooms for research and growth.',
+      es: 'Dashboards basicos para mercado y rendimiento.',
+      en: 'Foundational dashboards for market and performance views.',
+      nl: 'Basisdashboards voor markt en performance.',
+    },
+  },
+  {
+    name: 'Notion + Trello',
+    detail: {
+      es: 'Sistemas ligeros para documentar proyectos y tareas.',
+      en: 'Lightweight systems to document projects and tasks.',
+      nl: 'Lichte systemen om projecten en taken te documenteren.',
+    },
+  },
+  {
+    name: 'Google Workspace',
+    detail: {
+      es: 'Colaboracion asincrona y seguimiento con equipos globales.',
+      en: 'Asynchronous collaboration and follow-up with global teams.',
+      nl: 'Asynchrone samenwerking en opvolging met globale teams.',
     },
   },
   {
     name: 'Figma',
     detail: {
-      es: 'Sistemas ligeros para landing o investor decks.',
-      en: 'Lightweight systems for landings or investor decks.',
+      es: 'Presentaciones visuales y hojas de ruta para stakeholders.',
+      en: 'Visual presentations and roadmaps for stakeholders.',
+      nl: 'Visuele presentaties en roadmaps voor stakeholders.',
     },
   },
   {
-    name: 'Unity + Vuforia',
+    name: 'Unity + Blender',
     detail: {
-      es: 'Prototipos inmersivos y visualizaciones de datos.',
-      en: 'Immersive prototypes and data visualisations.',
-    },
-  },
-  {
-    name: 'Photoshop / Illustrator',
-    detail: {
-      es: 'Narrativas visuales para marketing y pitch.',
-      en: 'Visual narratives for marketing and pitch.',
-    },
-  },
-  {
-    name: 'SketchUp',
-    detail: {
-      es: 'Layouts de retail y experiencias espaciales.',
-      en: 'Retail layouts and spatial experiences.',
+      es: 'Prototipos conceptuales para explicar soluciones digitales.',
+      en: 'Concept prototypes to explain digital solutions.',
+      nl: 'Conceptprototypes om digitale oplossingen toe te lichten.',
     },
   },
 ]
 
 const signals = [
   {
-    label: { es: 'Email', en: 'Email' },
+    label: { es: 'Email', en: 'Email', nl: 'Email' },
     value: 'marekpisetsky001@gmail.com',
-    hint: { es: 'Comparte contexto o un deck y coordinamos agenda.', en: 'Share context or a deck and we align calendars.' },
+    hint: {
+      es: 'Comparte contexto o una presentacion y coordinamos agenda.',
+      en: 'Share context or a deck and we align calendars.',
+      nl: 'Deel context of een deck en we plannen direct.',
+    },
     href: 'mailto:marekpisetsky001@gmail.com',
   },
   {
-    label: { es: 'WhatsApp / Phone', en: 'WhatsApp / Phone' },
+    label: { es: 'WhatsApp / Telefono', en: 'WhatsApp / Phone', nl: 'WhatsApp / Telefoon' },
     value: '+31 620 935 300',
-    hint: { es: 'Notas de voz y seguimiento rapido. Signal disponible.', en: 'Voice notes and fast follow-ups. Signal available.' },
+    hint: {
+      es: 'Notas de voz y seguimiento rapido. Signal disponible.',
+      en: 'Voice notes and fast follow-ups. Signal available.',
+      nl: 'Voice notes en snelle follow-ups. Signal beschikbaar.',
+    },
     href: 'tel:+31620935300',
   },
   {
-    label: { es: 'Base', en: 'Base' },
-    value: 'Arnhem, NL / dispuesto a reubicarme en EU',
-    hint: { es: 'Trabajo hibrido, remoto y viajes puntuales.', en: 'Hybrid, remote, and targeted travel.' },
+    label: { es: 'Base', en: 'Base', nl: 'Standplaats' },
+    value: 'Arnhem, NL / movilidad EU',
+    hint: {
+      es: 'Trabajo hibrido, remoto y viajes puntuales.',
+      en: 'Hybrid, remote, and targeted travel.',
+      nl: 'Hybride, remote en gerichte reizen.',
+    },
   },
 ]
+
 
 const timeline = [
   {
     year: '2025',
+    month: { es: 'Junio 2025', en: 'June 2025', nl: 'Juni 2025' },
     detail: {
-      es: 'Buscando residencias estrategicas y trainee programs en consultoria o venture building.',
-      en: 'Seeking strategic residencies and trainee programs in consulting or venture building.',
+      es: 'Buscando traineeships y roles junior en estrategia, comercio internacional o consultoria.',
+      en: 'Looking for traineeships and junior roles in strategy, international trade, or consulting.',
+      nl: 'Zoekt traineeships en junior rollen in strategie, internationale handel of consultancy.',
     },
-    status: { es: 'Disponible', en: 'Available' },
+    status: { es: 'Disponible', en: 'Available', nl: 'Beschikbaar' },
   },
   {
     year: '2024',
     detail: {
-      es: 'Internship en movilidad sostenible y liderazgo en laboratorios de innovacion.',
-      en: 'Internship in sustainable mobility and leadership in innovation labs.',
+      es: 'Liderando proyectos con Comfort Zone, BYK y Print.com y participando en el consejo estudiantil.',
+      en: 'Leading projects with Comfort Zone, BYK, and Print.com while serving on the student council.',
+      nl: 'Leidde projecten met Comfort Zone, BYK en Print.com en diende in de studentenraad.',
     },
-    status: { es: 'Growth focus', en: 'Growth focus' },
+    status: { es: 'Proyectos activos', en: 'Active projects', nl: 'Actieve projecten' },
   },
   {
     year: 'Origen',
     detail: {
-      es: 'Lima > Barcelona > Arnhem. Vision multicultural y redes EU / LATAM.',
+      es: 'Lima > Barcelona > Arnhem. Perspectiva multicultural y redes EU / LATAM.',
       en: 'Lima > Barcelona > Arnhem. Multicultural view and EU / LATAM network.',
+      nl: 'Lima > Barcelona > Arnhem. Multiculturele blik en EU / LATAM netwerk.',
     },
-    status: { es: 'Global lens', en: 'Global lens' },
+    status: { es: 'Perspectiva global', en: 'Global lens', nl: 'Wereldwijde blik' },
   },
 ]
 
 const App = () => {
   const [language, setLanguage] = useState('es')
-  const [scrollProgress, setScrollProgress] = useState(0)
-  const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 })
-  const [cursorIntent, setCursorIntent] = useState('idle')
-  const dragState = useRef({ active: false, lastY: 0 })
+  const [theme, setTheme] = useState(() => {
+    if (typeof window === 'undefined') return 'light'
+    return window.localStorage.getItem('theme') ?? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
+  })
 
   useEffect(() => {
-    document.body.classList.add('has-custom-cursor')
-    return () => document.body.classList.remove('has-custom-cursor')
-  }, [])
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const top = window.scrollY || window.pageYOffset
-      const doc = document.documentElement.scrollHeight - window.innerHeight
-      const progress = doc > 0 ? top / doc : 0
-      setScrollProgress(Math.min(Math.max(progress, 0), 1))
+    document.documentElement.setAttribute('data-theme', theme)
+    if (typeof window !== 'undefined') {
+      window.localStorage.setItem('theme', theme)
     }
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    handleScroll()
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
-
-  useEffect(() => {
-    const handlePointerMove = (event) => {
-      setCursorPos({ x: event.clientX, y: event.clientY })
-      if (dragState.current.active) {
-        const deltaY = event.clientY - dragState.current.lastY
-        window.scrollBy({ top: -deltaY, behavior: 'auto' })
-        dragState.current.lastY = event.clientY
-        setCursorIntent('press')
-      } else {
-        setCursorIntent((prev) => (prev === 'press' ? prev : 'active'))
-      }
-    }
-
-    const handlePointerDown = (event) => {
-      if (event.button !== 0) return
-      dragState.current.active = true
-      dragState.current.lastY = event.clientY
-      document.body.classList.add('drag-scroll-active')
-      setCursorIntent('press')
-    }
-
-    const releaseDrag = () => {
-      dragState.current.active = false
-      document.body.classList.remove('drag-scroll-active')
-      setCursorIntent('active')
-    }
-
-    const handlePointerLeave = () => {
-      dragState.current.active = false
-      document.body.classList.remove('drag-scroll-active')
-      setCursorIntent('idle')
-    }
-
-    window.addEventListener('pointermove', handlePointerMove)
-    window.addEventListener('pointerdown', handlePointerDown)
-    window.addEventListener('pointerup', releaseDrag)
-    window.addEventListener('pointercancel', releaseDrag)
-    window.addEventListener('pointerleave', handlePointerLeave)
-
-    return () => {
-      window.removeEventListener('pointermove', handlePointerMove)
-      window.removeEventListener('pointerdown', handlePointerDown)
-      window.removeEventListener('pointerup', releaseDrag)
-      window.removeEventListener('pointercancel', releaseDrag)
-      window.removeEventListener('pointerleave', handlePointerLeave)
-    }
-  }, [])
-
-  const progressPercent = Math.round(scrollProgress * 100)
-  const unlockedLayers = cvLayers.map((layer) => ({
-    ...layer,
-    unlocked: scrollProgress + 0.08 >= layer.unlockAt,
-    progress: Math.min(Math.max((scrollProgress - layer.unlockAt + 0.2) / 0.2, 0), 1),
-  }))
-  const currentLayer = unlockedLayers.filter((layer) => layer.unlocked).slice(-1)[0] ?? cvLayers[0]
-  const unlockedPercent =
-    (unlockedLayers.filter((layer) => layer.unlocked).length / unlockedLayers.length) * 100
+  }, [theme])
 
   const t = copy[language]
+  const translate = (value) => (value && typeof value === 'object' && !Array.isArray(value) ? value[language] ?? value.en ?? '' : value)
+  const availability = timeline[0]
+  const availabilityWindow = availability.month ? translate(availability.month) : availability.year
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-[#02040f] text-white">
-  <div className="surface-grid pointer-events-none absolute inset-0 -z-20" aria-hidden="true" />
-  <div className="orb orb--left" aria-hidden="true" />
-  <div className="orb orb--right" aria-hidden="true" />
-      <div className="gradient-band gradient-band--one" aria-hidden="true" />
-      <div className="gradient-band gradient-band--two" aria-hidden="true" />
-  <div className="portal-overlay" aria-hidden="true">
-    <span className="portal-overlay__ring portal-overlay__ring--one" />
-    <span className="portal-overlay__ring portal-overlay__ring--two" />
-    <span className="portal-overlay__ring portal-overlay__ring--three" />
-    <span className="portal-overlay__grid" />
-    <span className="portal-overlay__ray portal-overlay__ray--one" />
-    <span className="portal-overlay__ray portal-overlay__ray--two" />
-    <div className="portal-render">
-      <span className="portal-render__core" />
-      <span className="portal-render__pulse" />
-      <span className="portal-render__scan" />
-    </div>
-  </div>
-      <div className="energy-strata" aria-hidden="true" />
-      <div className="scanline-overlay" aria-hidden="true" />
-  <div className="pointer-events-none absolute inset-0 -z-10 noise-texture" aria-hidden="true" />
-  <div className="geo-shape geo-shape--one" aria-hidden="true" />
-  <div className="geo-shape geo-shape--two" aria-hidden="true" />
-  <div className="front-aurora front-aurora--left" aria-hidden="true" />
-  <div className="front-aurora front-aurora--right" aria-hidden="true" />
-
-      <div
-        className="cursor"
-        data-intent={cursorIntent}
-        style={{ left: `${cursorPos.x}px`, top: `${cursorPos.y}px` }}
-        aria-hidden="true"
-      />
-
-      <div className="scroll-meter" aria-hidden="true">
-        <span className="scroll-meter__label">Scroll</span>
-        <span className="scroll-meter__value">{progressPercent.toString().padStart(2, '0')}</span>
-        <div className="scroll-meter__track">
-          <div style={{ height: `${progressPercent}%` }} />
-        </div>
-        <p className="scroll-meter__stage">{currentLayer.title[language]}</p>
-      </div>
-
-      <main className="relative z-10 mx-auto flex w-full max-w-6xl flex-col px-6 pb-28 pt-16 md:px-10 lg:pt-24">
-        <section id="hero" className="hero-shell relative overflow-hidden rounded-[46px] border border-white/10 bg-white/[0.02] p-8 md:p-12">
-          <div className="hero-cascade" aria-hidden="true">
-            <span className="hero-cascade__beam hero-cascade__beam--one" />
-            <span className="hero-cascade__beam hero-cascade__beam--two" />
-            <span className="hero-cascade__orb" />
+    <div className="app-shell">
+      <header className="app-header">
+        <div className="header-inner">
+          <div>
+            <p className="eyebrow">{t.meta}</p>
+            <p className="text-muted">{t.heroSignal}</p>
           </div>
-          <div className="hero-language">
-            <span>{t.languageLabel}</span>
-            <div className="hero-language__buttons">
-              {languageOptions.map((option) => (
-                <button
-                  key={option.code}
-                  type="button"
-                  onClick={() => setLanguage(option.code)}
-                  className={option.code === language ? 'active' : ''}
-                >
-                  {option.label}
-                </button>
+          <div className="header-actions">
+            <nav className="nav-links" aria-label="Primary">
+              {navigationLinks.map((link) => (
+                <a key={link.id} href={`#${link.id}`}>
+                  {translate(link.label)}
+                </a>
+              ))}
+            </nav>
+            <div className="chip-groups">
+              <div className="chip-group" aria-label={t.languageLabel}>
+                {languageOptions.map((option) => (
+                  <button
+                    key={option.code}
+                    type="button"
+                    className="chip-button"
+                    data-active={option.code === language}
+                    onClick={() => setLanguage(option.code)}
+                  >
+                    {option.label}
+                  </button>
+                ))}
+              </div>
+              <div className="chip-group" aria-label={t.themeLabel}>
+                {themeOptions.map((option) => (
+                  <button
+                    key={option.code}
+                    type="button"
+                    className="chip-button"
+                    data-active={option.code === theme}
+                    onClick={() => setTheme(option.code)}
+                  >
+                    {option.label[language]}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main className="content-grid">
+        <section id="overview" className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr]">
+          <article className="panel p-10 space-y-6">
+            <div>
+              <p className="text-muted uppercase tracking-[0.4em] text-xs">{t.meta}</p>
+              <h1 className="text-4xl font-semibold leading-tight">{t.heroTitle}</h1>
+              <p className="text-xl text-muted">{t.heroSubtitle}</p>
+            </div>
+            <p className="text-base text-muted">{t.heroParagraph}</p>
+            <div className="flex flex-wrap gap-2">
+              {heroFocus.map((item) => (
+                <span key={item.en} className="pill">
+                  {translate(item)}
+                </span>
               ))}
             </div>
-          </div>
-
-          <div className="hero-grid">
-            <div className="hero-primary">
-              <p className="text-xs uppercase tracking-[0.6em] text-white/60">{t.meta}</p>
-              <h1 className="text-4xl font-light leading-tight text-white md:text-6xl">{t.heroTitle}</h1>
-              <p className="text-xl text-white/85 md:text-2xl">{t.heroSubtitle}</p>
-              <p className="text-base text-white/70">{t.heroParagraph}</p>
-              <ul className="hero-focus">
-                {heroFocus.map((item) => (
-                  <li key={item.es}>{item[language]}</li>
-                ))}
-              </ul>
-            </div>
-          </div>
-
-          <div className="hero-actions">
-            <div className="hero-cta-group">
-              <a href="mailto:marekpisetsky001@gmail.com?subject=Colaboracion%20CV" className="cta-primary">
+            <div className="flex flex-wrap gap-3">
+              <a className="btn-primary" href="mailto:marekpisetsky001@gmail.com?subject=Coordinemos">
                 {t.heroPrimaryCta}
               </a>
-              <a href="#contact" className="cta-ghost">
+              <a className="btn-secondary" href="#contact">
                 {t.heroSecondaryCta}
               </a>
             </div>
-            <div className="hero-progress">
-              <div className="hero-progress__bar">
-                <div style={{ width: `${unlockedPercent}%` }} />
-              </div>
-              <span className="text-xs uppercase tracking-[0.4em] text-white/50">{t.heroSignal}</span>
-            </div>
-          </div>
+          </article>
 
-          <div className="hero-ticker">
-            <span className="hero-ticker__label">{t.tickerLabel}</span>
-            <div className="hero-ticker__viewport">
-              <div className="hero-ticker__track">
-                {[...tickerEntries, ...tickerEntries].map((entry, index) => (
-                  <div key={`${entry.tag.es}-${index}`} className="hero-ticker__item">
-                    <span className="hero-ticker__tag">{entry.tag[language]}</span>
-                    <div>
-                      <p className="hero-ticker__title">{entry.title[language]}</p>
-                      <p className="hero-ticker__meta">{entry.result[language]}</p>
-                    </div>
-                  </div>
+          <div className="flex flex-col gap-6">
+            <article className="panel p-6 space-y-4">
+              <p className="eyebrow">{t.currentFocusLabel}</p>
+              <div className="flex flex-wrap gap-2">
+                {cvLayers.slice(0, 3).map((layer) => (
+                  <span key={layer.code} className="pill pill--soft">
+                    {layer.code} | {translate(layer.title)}
+                  </span>
                 ))}
               </div>
-            </div>
-          </div>
-
-          <div className="hero-nav">
-            {t.heroNav.map((item) => (
-              <a key={item.target} href={item.target}>
-                {item.label}
-              </a>
-            ))}
+            </article>
+            <article className="panel p-6 space-y-3">
+              <p className="eyebrow">{t.statusLabel}</p>
+              <h3 className="text-2xl font-semibold">{t.heroSignal}</h3>
+              <p className="text-sm text-muted">{translate(availability.detail)}</p>
+              <div className="availability-box">
+                <span className="eyebrow">{t.availabilityLabel}</span>
+                <p className="text-xl font-semibold">{availabilityWindow}</p>
+              </div>
+            </article>
           </div>
         </section>
 
-        <section id="impact" className="mt-24 highlight-shell rounded-[40px] border border-white/10 p-8 md:p-10">
-          <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-            <div>
-              <p className="text-xs uppercase tracking-[0.6em] text-white/55">{t.highlightsTitle}</p>
-              <h2 className="mt-3 text-3xl font-light text-white md:text-[38px]">{t.highlightsDescription}</h2>
-            </div>
+        <section id="impact" className="space-y-6">
+          <div>
+            <p className="eyebrow">{t.highlightsTitle}</p>
+            <p className="text-muted">{t.highlightsDescription}</p>
           </div>
-          <div className="metric-grid mt-10">
+          <div className="grid gap-4 md:grid-cols-2">
             {highlightMetrics.map((metric) => (
-              <article key={metric.value} className="metric-card" data-tone={metric.tone}>
-                <p className="text-xs uppercase tracking-[0.5em] text-white/60">{metric.label[language]}</p>
-                <h3 className="text-3xl font-semibold text-white">{metric.value}</h3>
-                <p className="text-sm text-white/70">{metric.detail[language]}</p>
+              <article key={metric.value.en} className="panel panel--muted p-6 space-y-2">
+                <span className="eyebrow">{translate(metric.label)}</span>
+                <h3 className="text-xl font-semibold">{translate(metric.value)}</h3>
+                <p className="text-sm text-muted">{translate(metric.detail)}</p>
               </article>
             ))}
           </div>
         </section>
 
-        <section id="spotlights" className="mt-28 border-t border-white/10 pt-16">
-          <div className="spotlight-intro">
-            <div>
-              <p className="text-xs uppercase tracking-[0.6em] text-white/55">{t.spotlightsTitle}</p>
-              <h2 className="mt-3 text-3xl font-light text-white md:text-[38px]">{t.spotlightsDescription}</h2>
+        <section id="experience" className="space-y-8">
+          <div>
+            <p className="eyebrow">{t.experienceTitle}</p>
+            <p className="text-muted">{t.experienceDescription}</p>
+          </div>
+          <div className="grid gap-6">
+            {experience.map((item) => (
+              <article key={item.company} className="panel p-6 space-y-4">
+                <div className="flex flex-wrap items-center justify-between gap-3">
+                  <div>
+                    <p className="text-lg font-semibold">{translate(item.role)}</p>
+                    <p className="text-sm text-muted">
+                      {item.company} | {translate(item.period)}
+                    </p>
+                  </div>
+                </div>
+                <p className="text-sm text-muted">{translate(item.impact)}</p>
+                <div className="flex flex-wrap gap-2">
+                  {item.stack.map((tag, idx) => {
+                    const label = typeof tag === 'string' ? tag : translate(tag)
+                    const keyBase = typeof tag === 'string' ? tag : tag.en ?? tag.es ?? idx
+                    return (
+                      <span key={`${item.company}-${keyBase}-${idx}`} className="pill pill--ghost">
+                        {label}
+                      </span>
+                    )
+                  })}
+                </div>
+              </article>
+            ))}
+          </div>
+          <article className="panel p-6 space-y-6">
+            <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
+              <div>
+                <p className="eyebrow">{t.spotlightsTitle}</p>
+                <p className="text-sm text-muted">{t.spotlightsDescription}</p>
+              </div>
+              <span className="badge">{t.spotlightsBadge}</span>
             </div>
-          </div>
-          <div className="spotlight-grid">
-            {spotlights.map((story) => (
-              <article key={story.title.es} className="spotlight-card" data-tone={story.tone}>
-                <header>
-                  <span className="spotlight-card__focus">{story.focus[language]}</span>
-                  <h3>{story.title[language]}</h3>
-                </header>
-                <p className="text-sm text-white/75">{story.body[language]}</p>
-                <p className="spotlight-card__outcome">{story.outcome[language]}</p>
-                <button type="button" className="spotlight-card__cta">
-                  {language === 'es' ? 'Ver dossier' : 'View dossier'}
-                </button>
-              </article>
-            ))}
-          </div>
+            <div className="grid gap-4 md:grid-cols-3">
+              {spotlights.map((spotlight) => (
+                <div key={spotlight.title.en} className="panel panel--muted p-4 space-y-2">
+                  <p className="eyebrow">{translate(spotlight.focus)}</p>
+                  <h3 className="text-lg font-semibold">{translate(spotlight.title)}</h3>
+                  <p className="text-sm text-muted">{translate(spotlight.body)}</p>
+                  <p className="text-sm font-medium">{translate(spotlight.outcome)}</p>
+                </div>
+              ))}
+            </div>
+          </article>
         </section>
 
-        <section id="matrix" className="mt-28 border-t border-white/10 pt-16">
-          <div className="matrix-intro">
-            <p className="text-xs uppercase tracking-[0.6em] text-white/55">{t.layersTitle}</p>
-            <h2 className="text-3xl font-light text-white md:text-[40px]">{t.layersDescription}</h2>
-          </div>
-          <div className="matrix-grid">
-            <article className="matrix-panel matrix-panel--experience">
-              <header>
-                <p className="text-xs uppercase tracking-[0.5em] text-white/50">{t.experienceTitle}</p>
-                <span className="text-xs uppercase tracking-[0.45em] text-white/35">2022 - 2025</span>
-              </header>
-              <div className="matrix-panel__scroll">
-                {experience.map((item, index) => (
-                  <div key={item.company} className="matrix-experience">
-                    <div className="flex items-center justify-between">
-                      <h3 className="text-lg text-white">{item.role[language]}</h3>
-                      <span className="text-[10px] uppercase tracking-[0.4em] text-white/45">{`0${index + 1}`}</span>
+        <section id="capabilities" className="space-y-8">
+          <div className="grid gap-6 lg:grid-cols-2">
+            <article className="panel p-6 space-y-4">
+              <div>
+                <p className="eyebrow">{t.layersTitle}</p>
+                <p className="text-sm text-muted">{t.layersDescription}</p>
+              </div>
+              <div className="space-y-4">
+                {cvLayers.map((layer) => (
+                  <div key={layer.code} className="layer-card">
+                    <div className="flex items-center justify-between text-xs uppercase tracking-[0.35em] text-muted">
+                      <span>{layer.code}</span>
+                      <span>{translate(layer.tag)}</span>
                     </div>
-                    <p className="text-xs uppercase tracking-[0.4em] text-white/40">{item.period[language]}</p>
-                    <p className="mt-3 text-sm text-white/70">{item.impact[language]}</p>
-                    <div className="flex flex-wrap gap-1.5 pt-3">
-                      {item.stack.map((chip) => (
-                        <span key={chip} className="badge badge--ghost">
-                          {chip}
-                        </span>
-                      ))}
-                    </div>
+                    <p className="text-base font-semibold">{translate(layer.title)}</p>
+                    <p className="text-sm text-muted">{translate(layer.detail)}</p>
                   </div>
                 ))}
               </div>
             </article>
 
-            <article className="matrix-panel">
-              <header>
-                <p className="text-xs uppercase tracking-[0.5em] text-white/50">{t.layersTitle}</p>
-              </header>
-              <div className="matrix-layer-grid">
-                {unlockedLayers.map((layer) => (
-                  <div key={layer.code} className="matrix-layer">
-                    <span className="text-[10px] uppercase tracking-[0.4em] text-white/40">{layer.code}</span>
-                    <h3 className="text-base text-white">{layer.title[language]}</h3>
-                    <p className="text-sm text-white/65">{layer.detail[language]}</p>
-                    <div className="layer-progress">
-                      <div style={{ width: `${layer.progress * 100}%` }} />
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </article>
-
-            <article className="matrix-panel">
-              <header>
-                <p className="text-xs uppercase tracking-[0.5em] text-white/50">{t.toolsTitle}</p>
-              </header>
-              <ul className="matrix-list">
+            <article className="panel p-6 space-y-4">
+              <p className="eyebrow">{t.toolsTitle}</p>
+              <p className="text-sm text-muted">{t.toolsDescription}</p>
+              <ul className="space-y-3">
                 {techTools.map((tool) => (
-                  <li key={tool.name}>
-                    <h3 className="text-base text-white">{tool.name}</h3>
-                    <p className="text-sm text-white/65">{tool.detail[language]}</p>
+                  <li key={tool.name} className="tool-card">
+                    <p className="font-semibold">{tool.name}</p>
+                    <p className="text-sm text-muted">{translate(tool.detail)}</p>
                   </li>
                 ))}
               </ul>
             </article>
+          </div>
 
-            <article className="matrix-panel">
-              <header>
-                <p className="text-xs uppercase tracking-[0.5em] text-white/50">Educacion & Certificaciones</p>
-              </header>
-              <div className="space-y-4">
-                {education.map((edu) => (
-                  <div key={edu.institution} className="matrix-edu">
-                    <div className="flex items-center justify-between text-white/40 text-[10px] uppercase tracking-[0.4em]">
-                      <span>{edu.institution}</span>
-                      <span>{edu.year}</span>
-                    </div>
-                    <p className="text-base text-white">{edu.program[language]}</p>
-                    <p className="text-sm text-white/65">{edu.detail[language]}</p>
-                  </div>
-                ))}
+          <div className="grid gap-6 lg:grid-cols-2">
+            <article className="panel p-6 space-y-5">
+              <div>
+                <p className="eyebrow">{t.skillsTitle}</p>
+                <p className="text-sm text-muted">{t.skillsDescription}</p>
               </div>
-              <div className="matrix-cert-grid">
-                {certifications.map((cert) => (
-                  <div key={cert.name} className="matrix-cert">
-                    <p className="text-sm text-white">{cert.name}</p>
-                    <span className="text-[10px] uppercase tracking-[0.4em] text-white/40">{cert.year}</span>
-                  </div>
-                ))}
-              </div>
-            </article>
-
-            <article className="matrix-panel">
-              <header>
-                <p className="text-xs uppercase tracking-[0.5em] text-white/50">{t.skillsTitle}</p>
-              </header>
-              <div className="space-y-4">
+              <div className="space-y-5">
                 {skillClusters.map((cluster) => (
-                  <div key={cluster.title.es}>
-                    <h3 className="text-base text-white">{cluster.title[language]}</h3>
-                    <div className="space-y-2.5 pt-2">
+                  <div key={cluster.title.en} className="space-y-3">
+                    <p className="font-semibold">{translate(cluster.title)}</p>
+                    <div className="space-y-2">
                       {cluster.skills.map((skill) => (
-                        <div key={skill.label.es} className="skill-bar">
-                          <div className="flex items-center justify-between text-xs text-white/60">
-                            <span>{skill.label[language]}</span>
+                        <div key={skill.label.en}>
+                          <div className="flex items-center justify-between text-xs text-muted">
+                            <span>{translate(skill.label)}</span>
                             <span>{Math.round(skill.level * 100)}%</span>
                           </div>
-                          <div className="skill-bar__track">
-                            <div style={{ width: `${skill.level * 100}%` }} />
+                          <div className="progress-track">
+                            <div className="progress-bar" style={{ width: `${skill.level * 100}%` }} />
                           </div>
                         </div>
                       ))}
@@ -788,71 +798,105 @@ const App = () => {
               </div>
             </article>
 
-            <article className="matrix-panel">
-              <header>
-                <p className="text-xs uppercase tracking-[0.5em] text-white/50">Idiomas</p>
-              </header>
+            <article className="panel p-6 space-y-4">
+              <p className="eyebrow">{t.languagesAvailabilityLabel}</p>
               <div className="space-y-3">
                 {languageSkills.map((lang) => (
-                  <div key={lang.label.es} className="language-row">
-                    <span>{lang.label[language]}</span>
-                    <p>{lang.level[language]}</p>
+                  <div key={lang.label.en} className="flex items-center justify-between rounded-2xl border border-[color:var(--border-subtle)] px-4 py-2">
+                    <span className="font-medium">{translate(lang.label)}</span>
+                    <span className="text-sm text-muted">{translate(lang.level)}</span>
                   </div>
                 ))}
               </div>
-              <div className="availability-card card-parallax mt-6">
-                <p className="text-xs uppercase tracking-[0.5em] text-white/45">Availability</p>
-                <h3 className="text-2xl text-white">June 2025</h3>
-                <p className="text-sm text-white/70">Ready for trainee, analyst, or strategy rotation programs.</p>
-                <span className="badge badge--accent">EU work permit</span>
+              <div className="availability-box">
+                <p className="eyebrow">{t.availabilityLabel}</p>
+                <p className="text-lg font-semibold">{availabilityWindow}</p>
+                <p className="text-sm text-muted">
+                  {translate(availability.status)} | {translate(availability.detail)}
+                </p>
               </div>
             </article>
           </div>
         </section>
 
-        <section id="contact" className="mt-28 border-t border-white/10 pt-16">
-          <div className="grid gap-12 md:grid-cols-[1.2fr_0.8fr]">
-            <div>
-              <p className="text-xs uppercase tracking-[0.6em] text-white/55">{t.contactTitle}</p>
-              <h2 className="mt-4 text-3xl font-light text-white md:text-[38px]">{t.contactDescription}</h2>
-              <div className="mt-10 space-y-6 rounded-3xl border border-white/10 p-6">
-                {timeline.map((entry) => (
-                  <div key={entry.year} className="flex flex-col gap-1">
-                    <div className="flex items-center justify-between">
-                      <span className="text-[11px] uppercase tracking-[0.45em] text-white/45">{entry.year}</span>
-                      <span className="badge badge--ghost">{entry.status[language]}</span>
-                    </div>
-                    <p className="text-sm text-white/70">{entry.detail[language]}</p>
+        <section id="education" className="space-y-8">
+          <div>
+            <p className="eyebrow">{t.educationTitle}</p>
+            <p className="text-muted">{t.educationDescription}</p>
+          </div>
+          <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
+            <article className="panel p-6 space-y-5">
+              {education.map((edu) => (
+                <div key={edu.institution} className="education-card">
+                  <div className="flex items-center justify-between text-xs text-muted">
+                    <span>{edu.institution}</span>
+                    <span>{edu.year}</span>
+                  </div>
+                  <p className="font-semibold">{translate(edu.program)}</p>
+                  <p className="text-sm text-muted">{translate(edu.detail)}</p>
+                </div>
+              ))}
+            </article>
+            <article className="panel p-6 space-y-4">
+              <p className="eyebrow">{t.certificationsLabel}</p>
+              <div className="space-y-3">
+                {certifications.map((cert) => (
+                  <div key={cert.name} className="flex items-center justify-between rounded-2xl border border-[color:var(--border-subtle)] px-4 py-2">
+                    <span className="text-sm font-medium">{cert.name}</span>
+                    <span className="text-xs uppercase tracking-[0.3em] text-muted">{cert.year}</span>
                   </div>
                 ))}
               </div>
-            </div>
-            <div className="flex flex-col gap-6">
-              {signals.map((signal) => (
-                <div key={signal.value} className="contact-card">
-                  <p className="text-[11px] uppercase tracking-[0.55em] text-white/40">{signal.label[language]}</p>
-                  {signal.href ? (
-                    <a href={signal.href} className="text-2xl text-white transition hover:text-white/80">
-                      {signal.value}
-                    </a>
-                  ) : (
-                    <p className="text-2xl text-white">{signal.value}</p>
-                  )}
-                  <p className="text-sm text-white/60">{signal.hint[language]}</p>
-                </div>
-              ))}
-              <p className="text-xs uppercase tracking-[0.5em] text-white/45">
-                Notion / Figma / Power BI / Google Workspace
-              </p>
-            </div>
+            </article>
+          </div>
+        </section>
+
+        <section id="contact" className="space-y-8">
+          <div>
+            <p className="eyebrow">{t.contactTitle}</p>
+            <p className="text-muted">{t.contactDescription}</p>
+          </div>
+          <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
+            <article className="panel p-6 space-y-4">
+              <p className="eyebrow">{t.nextStepsLabel}</p>
+              <div className="space-y-4">
+                {timeline.map((entry) => (
+                  <div key={entry.year} className="timeline-row">
+                    <div className="flex items-center justify-between text-xs text-muted">
+                      <span>{entry.year}</span>
+                      <span className="pill pill--ghost">{translate(entry.status)}</span>
+                    </div>
+                    <p className="text-sm text-muted">{translate(entry.detail)}</p>
+                  </div>
+                ))}
+              </div>
+            </article>
+            <article className="panel p-6 space-y-4">
+              <div className="space-y-4">
+                {signals.map((signal) => (
+                  <div key={signal.value} className="signal-card">
+                    <p className="eyebrow">{translate(signal.label)}</p>
+                    {signal.href ? (
+                      <a href={signal.href} className="text-lg font-semibold transition hover:text-accent">
+                        {signal.value}
+                      </a>
+                    ) : (
+                      <p className="text-lg font-semibold">{signal.value}</p>
+                    )}
+                    <p className="text-sm text-muted">{translate(signal.hint)}</p>
+                  </div>
+                ))}
+              </div>
+              <p className="text-xs uppercase tracking-[0.35em] text-muted">{t.contactTools}</p>
+            </article>
           </div>
         </section>
       </main>
 
-      <footer className="relative z-10 border-t border-white/10 py-10">
-        <div className="mx-auto flex w-full max-w-6xl flex-col items-start justify-between gap-3 px-6 text-xs uppercase tracking-[0.5em] text-white/40 md:flex-row md:items-center md:px-10">
+      <footer className="app-footer">
+        <div className="footer-inner">
           <span>&copy; {new Date().getFullYear()} Marek A. Pisetsky Neyra</span>
-          <span>International business / technology strategy</span>
+          <span>{t.footerTagline}</span>
         </div>
       </footer>
     </div>
@@ -860,3 +904,14 @@ const App = () => {
 }
 
 export default App
+
+
+
+
+
+
+
+
+
+
+
